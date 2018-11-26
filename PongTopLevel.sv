@@ -1,4 +1,4 @@
-module Lab6(input logic SYS_CLK, output logic HSYNC_PIN, output logic VSYNC_PIN,
+module PongTopLevel(input logic SYS_CLK, output logic HSYNC_PIN, output logic VSYNC_PIN,
 output logic [3:0] R, output logic [3:0] G, output logic [3:0] B);
 
 logic halfClock;
