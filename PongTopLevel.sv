@@ -1,4 +1,4 @@
-module PongTopLevel(input logic SYS_CLK, input logic leftUp, input logic leftDown, input logic rightUp, input logic rightDown, output logic HSYNC_PIN, output logic VSYNC_PIN,
+module PongTopLevel(input logic SYS_CLK, input logic kbData, input logic kbClock, output logic HSYNC_PIN, output logic VSYNC_PIN,
 output logic [3:0] R, output logic [3:0] G, output logic [3:0] B);
 
 logic halfClock;
@@ -6,6 +6,14 @@ logic active;
 
 logic leftPaddleDraw;
 logic rightPaddleDraw;
+
+logic leftUp, leftDown;
+KBTopLevel keyboard(.kbData(kbData), .kbClock(kbClock), .upButton(leftUp), .downButton(leftDown));
+
+logic rightUp, rightDown;
+
+assign rightUp = leftUp;
+assign rightdown = leftDown;
 
 logic border;
 
