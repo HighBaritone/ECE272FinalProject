@@ -14,7 +14,7 @@ logic [9:0] paddleTop;
 assign paddleBottom = (paddleCenterYPos - 40);
 assign paddleTop = (paddleCenterYPos + 40);
 
-always_ff @ (posedge clk)
+always @ (posedge clk)
 begin
 	if(upButton == downButton)
 		begin

@@ -12,12 +12,6 @@ localparam EndofFrame = 480;             // vertical active pixel end
 localparam MaxHoriz   = 800;             // complete line (pixels)
 localparam MaxVert = 525;             // complete screen (lines)
 
-initial
-begin
-	hSync = 1'b1;
-	vSync = 1'b1;
-end
-
 logic [9:0] horiz_count;  // current line position
 logic [9:0] vert_count;   // current vertical position
 
