@@ -7,6 +7,10 @@ logic active;
 logic leftPaddleDraw;
 logic rightPaddleDraw;
 
+logic border;
+
+logic bothPaddles;
+
 halfCounter clk (.sys_clk(SYS_CLK), .clk_out(halfClock));
 
 logic [9:0] x;
@@ -27,12 +31,16 @@ Paddle rightPaddle(.clk(VSYNC_PIN), .upButton(rightUp), .downButton(rightDown), 
 assign leftPaddleDraw = (((x == 25 | x == 24 | x == 26) & (y >= (leftPaddleYPos - 40) & y <= (leftPaddleYPos + 40))));
 assign rightPaddleDraw = (((x == 615 | x == 614 | x == 616) & (y >= (rightPaddleYPos - 40) & y <= (rightPaddleYPos + 40))));
 
+assign bothPaddles = (leftPaddleDraw | rightPaddleDraw);
 
-assign r = (leftPaddleDraw | rightPaddleDraw) ? 4'b1111 : 4'b0000;
+logic ballDraw;
+ball pongBall(.clk(SYS_CLK), .VSYNC(VSYNC_PIN), .paddleTouched(bothPaddles), .x(x), .y(y), .ballDraw(ballDraw));
 
-assign g = (leftPaddleDraw | rightPaddleDraw) ? 4'b1111 : 4'b0000;
+assign r = (leftPaddleDraw | rightPaddleDraw | ballDraw) ? 4'b1111 : 4'b0000;
 
-assign b = (leftPaddleDraw | rightPaddleDraw) ? 4'b1111 : 4'b0000;
+assign g = (leftPaddleDraw | rightPaddleDraw | ballDraw) ? 4'b1111 : 4'b0000;
+
+assign b = (leftPaddleDraw | rightPaddleDraw | ballDraw) ? 4'b1111 : 4'b0000;
 
 always_ff @(posedge halfClock)
 begin
